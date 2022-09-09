@@ -1,0 +1,156 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://sounds/impacts/metal.wav" type="AudioStream" id=1]
+[ext_resource path="res://textures/impacts/metal.png" type="Texture" id=2]
+[ext_resource path="res://textures/impacts/metal_norm.png" type="Texture" id=3]
+[ext_resource path="res://scenes/impacts/metal.gd" type="Script" id=4]
+[ext_resource path="res://textures/effects/smoke_sheet.png" type="Texture" id=5]
+[ext_resource path="res://textures/effects/capsule.png" type="Texture" id=6]
+[ext_resource path="res://textures/impacts/metal_mask.png" type="Texture" id=7]
+
+[sub_resource type="Gradient" id=15]
+offsets = PoolRealArray( 0, 0.853881, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=16]
+gradient = SubResource( 15 )
+width = 128
+
+[sub_resource type="ParticlesMaterial" id=18]
+flag_disable_z = true
+direction = Vector3( 0, 0, -1 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 720.0
+angle_random = 1.0
+scale = 0.75
+scale_random = 1.0
+color_ramp = SubResource( 16 )
+
+[sub_resource type="SpatialMaterial" id=17]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource( 2 )
+metallic = 1.0
+roughness = 0.1
+emission_enabled = true
+emission = Color( 1, 0.572549, 0, 1 )
+emission_energy = 16.0
+emission_operator = 1
+emission_on_uv2 = false
+emission_texture = ExtResource( 7 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 3 )
+
+[sub_resource type="QuadMesh" id=13]
+material = SubResource( 17 )
+size = Vector2( 0.5, 0.5 )
+
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+direction = Vector3( 0, 0, -1 )
+spread = 25.0
+gravity = Vector3( 0, 0.2, 0 )
+initial_velocity = 1.0
+damping = 0.1
+damping_random = 0.5
+angle = 720.0
+angle_random = 1.0
+scale = 10.0
+scale_random = 1.0
+color_ramp = SubResource( 4 )
+anim_speed = 1.0
+
+[sub_resource type="SpatialMaterial" id=6]
+flags_transparent = true
+flags_do_not_receive_shadows = true
+vertex_color_use_as_albedo = true
+params_billboard_mode = 3
+particles_anim_h_frames = 4
+particles_anim_v_frames = 4
+particles_anim_loop = false
+albedo_texture = ExtResource( 5 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="QuadMesh" id=7]
+material = SubResource( 6 )
+size = Vector2( 0.25, 0.25 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+direction = Vector3( 0, 0, -1 )
+spread = 30.0
+gravity = Vector3( 0, -4, 0 )
+initial_velocity = 8.0
+initial_velocity_random = 1.0
+damping = 0.5
+damping_random = 0.5
+angle = 720.0
+angle_random = 1.0
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_transparent = true
+flags_do_not_receive_shadows = true
+vertex_color_use_as_albedo = true
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 0, 0, 0, 1 )
+albedo_texture = ExtResource( 6 )
+emission_enabled = true
+emission = Color( 1, 0.631373, 0, 1 )
+emission_energy = 5.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="QuadMesh" id=10]
+material = SubResource( 9 )
+size = Vector2( 0.03, 0.03 )
+
+[node name="metal" type="Spatial"]
+script = ExtResource( 4 )
+
+[node name="impact" type="Particles" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+emitting = false
+amount = 1
+lifetime = 3.0
+one_shot = true
+process_material = SubResource( 18 )
+draw_pass_1 = SubResource( 13 )
+
+[node name="dust" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+emitting = false
+amount = 1
+one_shot = true
+explosiveness = 0.99
+local_coords = false
+process_material = SubResource( 5 )
+draw_pass_1 = SubResource( 7 )
+
+[node name="sparks" type="Particles" parent="."]
+emitting = false
+lifetime = 2.0
+one_shot = true
+speed_scale = 3.0
+explosiveness = 0.99
+local_coords = false
+process_material = SubResource( 8 )
+draw_pass_1 = SubResource( 10 )
+
+[node name="sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 1 )
+unit_size = 6.0
+autoplay = true
+bus = "Sounds"
+doppler_tracking = 2

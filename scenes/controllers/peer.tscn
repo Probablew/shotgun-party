@@ -1,0 +1,140 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://materials/gobot/gobot_mask.png" type="Texture" id=1]
+[ext_resource path="res://scenes/gobot/gobot.tscn" type="PackedScene" id=2]
+[ext_resource path="res://materials/gobot/gobot_orm.png" type="Texture" id=3]
+[ext_resource path="res://scenes/weapons/boomstick.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/controllers/peer.gd" type="Script" id=7]
+
+[sub_resource type="VisualShaderNodeTexture" id=1]
+texture = ExtResource( 3 )
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=2]
+
+[sub_resource type="VisualShaderNodeTexture" id=3]
+texture = ExtResource( 1 )
+
+[sub_resource type="VisualShaderNodeColorUniform" id=4]
+uniform_name = "color"
+
+[sub_resource type="VisualShaderNodeColorUniform" id=5]
+uniform_name = "edge"
+
+[sub_resource type="VisualShaderNodeVectorInterp" id=6]
+
+[sub_resource type="VisualShaderNodeScalarConstant" id=7]
+constant = 1.0
+
+[sub_resource type="VisualShader" id=8]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx;
+
+uniform vec4 edge : hint_color;
+uniform vec4 color : hint_color;
+uniform sampler2D tex_frg_4;
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// ColorUniform:6
+	vec3 n_out6p0 = edge.rgb;
+	float n_out6p1 = edge.a;
+
+// ColorUniform:5
+	vec3 n_out5p0 = color.rgb;
+	float n_out5p1 = color.a;
+
+// Texture:4
+	vec4 tex_frg_4_read = texture(tex_frg_4, UV.xy);
+	vec3 n_out4p0 = tex_frg_4_read.rgb;
+	float n_out4p1 = tex_frg_4_read.a;
+
+// VectorMix:7
+	vec3 n_out7p0 = mix(n_out6p0, n_out5p0, n_out4p0);
+
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// VectorDecompose:3
+	float n_out3p0 = n_out2p0.x;
+	float n_out3p1 = n_out2p0.y;
+	float n_out3p2 = n_out2p0.z;
+
+// Scalar:8
+	float n_out8p0 = 1.000000;
+
+// Output:0
+	ALBEDO = n_out7p0;
+	METALLIC = n_out3p2;
+	ROUGHNESS = n_out3p1;
+	AO = n_out3p0;
+	AO_LIGHT_AFFECT = n_out8p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -114, 391 )
+nodes/fragment/0/position = Vector2( 560, 140 )
+nodes/fragment/2/node = SubResource( 1 )
+nodes/fragment/2/position = Vector2( -187, 317 )
+nodes/fragment/3/node = SubResource( 2 )
+nodes/fragment/3/position = Vector2( 100, 380 )
+nodes/fragment/4/node = SubResource( 3 )
+nodes/fragment/4/position = Vector2( 20, -180 )
+nodes/fragment/5/node = SubResource( 4 )
+nodes/fragment/5/position = Vector2( 20, 60 )
+nodes/fragment/6/node = SubResource( 5 )
+nodes/fragment/6/position = Vector2( 20, 180 )
+nodes/fragment/7/node = SubResource( 6 )
+nodes/fragment/7/position = Vector2( 300, 0 )
+nodes/fragment/8/node = SubResource( 7 )
+nodes/fragment/8/position = Vector2( 360, 548 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 3, 0, 3, 1, 0, 3, 3, 0, 0, 6, 3, 2, 0, 2, 4, 0, 7, 2, 7, 0, 0, 0, 5, 0, 7, 1, 6, 0, 7, 0, 8, 0, 0, 19 )
+
+[sub_resource type="ShaderMaterial" id=9]
+resource_local_to_scene = true
+shader = SubResource( 8 )
+shader_param/edge = Color( 0.72549, 0.72549, 0.72549, 1 )
+shader_param/color = Color( 0.2, 0.239216, 0.333333, 1 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=10]
+
+[node name="peer" type="Node"]
+script = ExtResource( 7 )
+
+[node name="body" parent="." instance=ExtResource( 2 )]
+collision_layer = 4
+collision_mask = 31
+
+[node name="mesh_instance" parent="body/model/skeleton" index="0"]
+material/0 = SubResource( 9 )
+
+[node name="a_hand_r" parent="body/model/skeleton" index="1"]
+transform = Transform( -0.974152, -0.172704, 0.145607, 0.21758, -0.890627, 0.399299, 0.0607211, 0.42066, 0.905184, -0.665233, 0.771534, 0.157155 )
+
+[node name="animation_tree" parent="body/model" index="2"]
+parameters/sm/playback = SubResource( 10 )
+
+[node name="tween" type="Tween" parent="."]
+
+[node name="holder" type="Spatial" parent="."]
+
+[node name="weapons" type="Spatial" parent="holder"]
+
+[node name="weapon" parent="holder/weapons" instance=ExtResource( 4 )]
+muzzle_path = NodePath("../../../body/model/skeleton/a_hand_r/boomstick/muzzle")
+
+[editable path="body"]
+[editable path="holder/weapons/weapon"]

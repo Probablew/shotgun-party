@@ -1,0 +1,567 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://sounds/menu/drone.ogg" type="AudioStream" id=2]
+[ext_resource path="res://sounds/menu/click.wav" type="AudioStream" id=3]
+[ext_resource path="res://fonts/poppins.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://scenes/ui/menu.gd" type="Script" id=6]
+[ext_resource path="res://fonts/poppins_bold.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://misc/default.theme" type="Theme" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 7 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="DynamicFont" id=8]
+size = 48
+font_data = ExtResource( 5 )
+
+[node name="menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -640.0
+margin_bottom = -360.0
+rect_min_size = Vector2( 1920, 1080 )
+theme = ExtResource( 9 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1280, 720 )
+color = Color( 0.215686, 0.227451, 0.262745, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ver" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0.392157 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+margin_top = 64.0
+margin_right = -64.0
+margin_bottom = -64.0
+custom_fonts/font = SubResource( 1 )
+text = "0.0.0"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="VBoxContainer" parent="."]
+modulate = Color( 1, 1, 1, 0.882353 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+margin_top = 64.0
+margin_right = -64.0
+margin_bottom = -64.0
+custom_constants/separation = 16
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="container"]
+margin_right = 1792.0
+margin_bottom = 91.0
+custom_fonts/font = SubResource( 2 )
+text = "Shotgun Party"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="main" type="GridContainer" parent="container"]
+margin_top = 107.0
+margin_right = 1792.0
+margin_bottom = 339.0
+rect_min_size = Vector2( 200, 0 )
+custom_constants/vseparation = 16
+custom_constants/hseparation = 16
+
+[node name="host" type="Button" parent="container/main"]
+margin_right = 200.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 200, 32 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Host"
+flat = true
+align = 0
+
+[node name="connect" type="Button" parent="container/main"]
+margin_top = 62.0
+margin_right = 200.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 200, 32 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Connect"
+flat = true
+align = 0
+
+[node name="settings" type="Button" parent="container/main"]
+margin_top = 124.0
+margin_right = 200.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 200, 32 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Settings"
+flat = true
+align = 0
+
+[node name="quit" type="Button" parent="container/main"]
+margin_top = 186.0
+margin_right = 200.0
+margin_bottom = 232.0
+rect_min_size = Vector2( 200, 32 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/disabled = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Quit"
+flat = true
+align = 0
+
+[node name="host" type="VBoxContainer" parent="container"]
+visible = false
+margin_top = 107.0
+margin_right = 1792.0
+margin_bottom = 403.0
+custom_constants/separation = 16
+
+[node name="subtitle" type="Label" parent="container/host"]
+margin_right = 1792.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 8 )
+text = "Host"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bot_count" type="HBoxContainer" parent="container/host"]
+margin_top = 84.0
+margin_right = 1792.0
+margin_bottom = 144.0
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="container/host/bot_count"]
+margin_right = 320.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Bots to spawn"
+valign = 1
+
+[node name="slider" type="HSlider" parent="container/host/bot_count"]
+margin_left = 352.0
+margin_right = 672.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+rounded = true
+tick_count = 5
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="container/host/bot_count"]
+margin_left = 704.0
+margin_right = 724.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+text = "0"
+valign = 1
+
+[node name="max_score" type="HBoxContainer" parent="container/host"]
+margin_top = 160.0
+margin_right = 1792.0
+margin_bottom = 220.0
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="container/host/max_score"]
+margin_right = 320.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Maximum score"
+valign = 1
+
+[node name="slider" type="HSlider" parent="container/host/max_score"]
+margin_left = 352.0
+margin_right = 672.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+rounded = true
+tick_count = 5
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="container/host/max_score"]
+margin_left = 704.0
+margin_right = 724.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+text = "0"
+valign = 1
+
+[node name="buttons" type="HBoxContainer" parent="container/host"]
+margin_top = 236.0
+margin_right = 1792.0
+margin_bottom = 296.0
+custom_constants/separation = 32
+
+[node name="host" type="Button" parent="container/host/buttons"]
+margin_right = 320.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Host a game"
+
+[node name="back" type="Button" parent="container/host/buttons"]
+margin_left = 352.0
+margin_right = 672.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Back"
+
+[node name="connect" type="VBoxContainer" parent="container"]
+visible = false
+margin_top = 107.0
+margin_right = 1792.0
+margin_bottom = 327.0
+custom_constants/separation = 16
+
+[node name="subtitle" type="Label" parent="container/connect"]
+margin_right = 1792.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 8 )
+text = "Connect"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ip" type="HBoxContainer" parent="container/connect"]
+margin_top = 84.0
+margin_right = 1792.0
+margin_bottom = 144.0
+custom_constants/separation = 32
+
+[node name="label" type="Label" parent="container/connect/ip"]
+margin_right = 320.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Host address"
+valign = 1
+
+[node name="edit" type="LineEdit" parent="container/connect/ip"]
+margin_left = 352.0
+margin_right = 672.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "localhost"
+
+[node name="buttons" type="HBoxContainer" parent="container/connect"]
+margin_top = 160.0
+margin_right = 1792.0
+margin_bottom = 220.0
+custom_constants/separation = 32
+
+[node name="connect" type="Button" parent="container/connect/buttons"]
+margin_right = 320.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Connect to host"
+
+[node name="back" type="Button" parent="container/connect/buttons"]
+margin_left = 352.0
+margin_right = 672.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Back"
+
+[node name="settings" type="VBoxContainer" parent="container"]
+visible = false
+margin_top = 107.0
+margin_right = 1792.0
+margin_bottom = 403.0
+custom_constants/separation = 16
+
+[node name="subtitle" type="Label" parent="container/settings"]
+margin_right = 1792.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 8 )
+text = "Settings"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="res" type="HBoxContainer" parent="container/settings"]
+margin_top = 84.0
+margin_right = 1792.0
+margin_bottom = 144.0
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="container/settings/res"]
+margin_right = 320.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Resolution"
+valign = 1
+
+[node name="slider" type="HSlider" parent="container/settings/res"]
+margin_left = 352.0
+margin_right = 672.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+max_value = 6.0
+value = 3.0
+rounded = true
+tick_count = 3
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="container/settings/res"]
+margin_left = 704.0
+margin_right = 842.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+text = "1280x720"
+valign = 1
+
+[node name="res_scale" type="HBoxContainer" parent="container/settings"]
+margin_top = 160.0
+margin_right = 1792.0
+margin_bottom = 220.0
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="container/settings/res_scale"]
+margin_right = 320.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Resolution scale"
+valign = 1
+
+[node name="slider" type="HSlider" parent="container/settings/res_scale"]
+margin_left = 352.0
+margin_right = 672.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+min_value = 0.1
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 2
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="container/settings/res_scale"]
+margin_left = 704.0
+margin_right = 714.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+text = "1"
+valign = 1
+
+[node name="knockback" type="HBoxContainer" parent="container/settings"]
+margin_top = 160.0
+margin_right = 1792.0
+margin_bottom = 220.0
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="container/settings/knockback"]
+margin_right = 320.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Knockback"
+valign = 1
+
+[node name="slider" type="HSlider" parent="container/settings/knockback"]
+margin_left = 352.0
+margin_right = 672.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+min_value = 1.0
+value = 1.0
+tick_count = 2
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="container/settings/knockback"]
+margin_left = 704.0
+margin_right = 714.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+text = "1"
+valign = 1
+
+[node name="cooldown" type="HBoxContainer" parent="container/settings"]
+margin_top = 160.0
+margin_right = 1792.0
+margin_bottom = 220.0
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="container/settings/cooldown"]
+margin_right = 320.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Cooldown"
+valign = 1
+
+[node name="slider" type="HSlider" parent="container/settings/cooldown"]
+margin_left = 352.0
+margin_right = 672.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+max_value = 0.5
+step = 0.1
+value = 0.5
+tick_count = 2
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="container/settings/cooldown"]
+margin_left = 704.0
+margin_right = 714.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+text = "1"
+valign = 1
+
+[node name="buttons" type="HBoxContainer" parent="container/settings"]
+margin_top = 236.0
+margin_right = 1792.0
+margin_bottom = 296.0
+custom_constants/separation = 32
+
+[node name="save" type="Button" parent="container/settings/buttons"]
+margin_right = 320.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Save"
+
+[node name="back" type="Button" parent="container/settings/buttons"]
+margin_left = 352.0
+margin_right = 672.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 320, 60 )
+text = "Back"
+
+[node name="click" type="AudioStreamPlayer" parent="container"]
+stream = ExtResource( 3 )
+bus = "Sounds"
+
+[node name="message" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="overlay" type="ColorRect" parent="message"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.705882 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="VBoxContainer" parent="message"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 200.0
+margin_top = 200.0
+margin_right = -200.0
+margin_bottom = -200.0
+custom_constants/separation = 16
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="Label" parent="message/container"]
+margin_top = 63.0
+margin_right = 624.0
+margin_bottom = 89.0
+text = "Some very important message here. "
+align = 1
+autowrap = true
+
+[node name="buttons" type="HBoxContainer" parent="message/container"]
+margin_top = 105.0
+margin_right = 624.0
+margin_bottom = 137.0
+alignment = 1
+
+[node name="ok" type="Button" parent="message/container/buttons"]
+margin_left = 262.0
+margin_right = 362.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 100, 0 )
+text = "Ok"
+
+[node name="drone" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -16.0
+autoplay = true
+bus = "Music"
+
+[connection signal="pressed" from="container/main/host" to="." method="_on_main_host_pressed"]
+[connection signal="pressed" from="container/main/connect" to="." method="_on_main_connect_pressed"]
+[connection signal="pressed" from="container/main/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="container/main/quit" to="." method="_on_main_quit_pressed"]
+[connection signal="value_changed" from="container/host/bot_count/slider" to="." method="_on_bot_count_changed"]
+[connection signal="value_changed" from="container/host/max_score/slider" to="." method="_on_max_score_changed"]
+[connection signal="pressed" from="container/host/buttons/host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="container/host/buttons/back" to="." method="_on_host_back_pressed"]
+[connection signal="pressed" from="container/connect/buttons/connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="container/connect/buttons/back" to="." method="_on_connect_back_pressed"]
+[connection signal="value_changed" from="container/settings/res/slider" to="." method="_on_res_value_changed"]
+[connection signal="value_changed" from="container/settings/res_scale/slider" to="." method="_on_rs_value_changed"]
+[connection signal="value_changed" from="container/settings/knockback/slider" to="." method="_on_knockback_value_changed"]
+[connection signal="value_changed" from="container/settings/cooldown/slider" to="." method="_on_cooldown_value_changed"]
+[connection signal="pressed" from="container/settings/buttons/save" to="." method="_on_settings_save_pressed"]
+[connection signal="pressed" from="container/settings/buttons/back" to="." method="_on_settings_back_pressed"]
+[connection signal="pressed" from="message/container/buttons/ok" to="." method="_on_message_ok_pressed"]
