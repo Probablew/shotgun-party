@@ -1,4 +1,4 @@
-# Godot Shotgun Party
+# Godot Shotgun Party (By Ic3Bug)
 
 This is an evolving game prototype made with Godot Engine 3.  
 To help the project grow both financial and in-kind contributions are very welcome.  
